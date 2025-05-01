@@ -95,9 +95,9 @@ namespace FourtitudeAsiaAssessment.Infrastructure.Service
                 totalDiscount = 0.2m;
             }
 
-            decimal finalAmount = totalAmount * totalDiscount;
+            decimal discountAmount = totalAmount * totalDiscount;
 
-            return (long)finalAmount;
+            return (long)discountAmount;
         }
 
         public static bool IsPrime(long number)
