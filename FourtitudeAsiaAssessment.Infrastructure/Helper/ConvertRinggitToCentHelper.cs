@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FourtitudeAsiaAssessment.Infrastructure.Helper
+﻿namespace FourtitudeAsiaAssessment.Infrastructure.Helper
 {
     public class ConvertRinggitToCentHelper
     {
-        public static long ConvertRinggitToCent(decimal ringgit)
+        public static long ConvertRinggitToCent(decimal number)
         {
-            return (long)(ringgit * 100);
+            return (long)(number * 100);
+        }
+
+        public static long ConvertCentToRinggit(decimal number)
+        {
+            return (long)(number / 100);
         }
     }
 }

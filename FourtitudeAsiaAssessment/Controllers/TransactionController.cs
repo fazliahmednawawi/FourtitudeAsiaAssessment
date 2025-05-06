@@ -59,19 +59,19 @@ namespace FourtitudeAsiaAssessment.Controllers
                 return BadRequest(errorResponse);
             }
 
-            if (!_service.ValidTotalAmount(transactionMapper))
-            {
-                var errorResponse = new ErrorResponse
-                {
-                    Result = 0,
-                    ResultMessage = "Invalid Total Amount.",
-                    Description = new List<string> { "The total value stated in itemDetails array not equal to value in totalamount." }
-                };
+            //if (!_service.ValidTotalAmount(transactionMapper))
+            //{
+            //    var errorResponse = new ErrorResponse
+            //    {
+            //        Result = 0,
+            //        ResultMessage = "Invalid Total Amount.",
+            //        Description = new List<string> { "The total value stated in itemDetails array not equal to value in totalamount." }
+            //    };
 
-                _logger.Warn($"[RESPONSE] SubmitTransaction (Invalid Total Amount): {JsonConvert.SerializeObject(errorResponse)}");
+            //    _logger.Warn($"[RESPONSE] SubmitTransaction (Invalid Total Amount): {JsonConvert.SerializeObject(errorResponse)}");
 
-                return BadRequest(errorResponse);
-            }
+            //    return BadRequest(errorResponse);
+            //}
 
             //if (_service.ExpiredRequest(transactionMapper.Timestamp))
             //{
@@ -87,8 +87,7 @@ namespace FourtitudeAsiaAssessment.Controllers
             //    return BadRequest(errorResponse);
             //}
 
-            var totalAmount = transactionMapper.TotalAmount.HasValue ? transactionMapper.TotalAmount.Value : 0;
-            var discountAmount = _service.CalculateDiscountAmount(totalAmount);
+            var discountAmount = _service.CalculateDiscountAmount(transactionMapper.TotalAmount ?? 0);
 
             var successResponse = new SuccessResponse()
             {

@@ -4,7 +4,9 @@
     {
         public static bool NumberEndWithFive(long number)
         {
-            return number % 10 == 5;
+            long result = ConvertRinggitToCentHelper.ConvertCentToRinggit(number);
+
+            return result % 10 == 5;
         }
     }
 }

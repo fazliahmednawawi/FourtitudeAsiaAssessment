@@ -64,15 +64,15 @@ namespace FourtitudeAsiaAssessment.Infrastructure.Service
             {
                 totalDiscount += 0;
             }
-            else if (totalAmount <= ConvertRinggitToCentHelper.ConvertRinggitToCent(500))
+            else if (totalAmount < ConvertRinggitToCentHelper.ConvertRinggitToCent(501))
             {
                 totalDiscount += 0.05m;
             }
-            else if (totalAmount <= ConvertRinggitToCentHelper.ConvertRinggitToCent(800))
+            else if (totalAmount < ConvertRinggitToCentHelper.ConvertRinggitToCent(801))
             {
                 totalDiscount += 0.07m;
             }
-            else if (totalAmount <= ConvertRinggitToCentHelper.ConvertRinggitToCent(1200))
+            else if (totalAmount < ConvertRinggitToCentHelper.ConvertRinggitToCent(1201))
             {
                 totalDiscount += 0.1m;
             }
