@@ -59,33 +59,33 @@ namespace FourtitudeAsiaAssessment.Controllers
                 return BadRequest(errorResponse);
             }
 
-            //if (!_service.ValidTotalAmount(transactionMapper))
-            //{
-            //    var errorResponse = new ErrorResponse
-            //    {
-            //        Result = 0,
-            //        ResultMessage = "Invalid Total Amount.",
-            //        Description = new List<string> { "The total value stated in itemDetails array not equal to value in totalamount." }
-            //    };
+            if (!_service.ValidTotalAmount(transactionMapper))
+            {
+                var errorResponse = new ErrorResponse
+                {
+                    Result = 0,
+                    ResultMessage = "Invalid Total Amount.",
+                    Description = new List<string> { "The total value stated in itemDetails array not equal to value in totalamount." }
+                };
 
-            //    _logger.Warn($"[RESPONSE] SubmitTransaction (Invalid Total Amount): {JsonConvert.SerializeObject(errorResponse)}");
+                _logger.Warn($"[RESPONSE] SubmitTransaction (Invalid Total Amount): {JsonConvert.SerializeObject(errorResponse)}");
 
-            //    return BadRequest(errorResponse);
-            //}
+                return BadRequest(errorResponse);
+            }
 
-            //if (_service.ExpiredRequest(transactionMapper.Timestamp))
-            //{
-            //    var errorResponse = new ErrorResponse
-            //    {
-            //        Result = 0,
-            //        ResultMessage = "Expired.",
-            //        Description = new List<string> { "API request is expired." }
-            //    };
+            if (_service.ExpiredRequest(transactionMapper.Timestamp))
+            {
+                var errorResponse = new ErrorResponse
+                {
+                    Result = 0,
+                    ResultMessage = "Expired.",
+                    Description = new List<string> { "API request is expired." }
+                };
 
-            //    _logger.Warn($"[RESPONSE] SubmitTransaction (Expired Request): {JsonConvert.SerializeObject(errorResponse)}");
+                _logger.Warn($"[RESPONSE] SubmitTransaction (Expired Request): {JsonConvert.SerializeObject(errorResponse)}");
 
-            //    return BadRequest(errorResponse);
-            //}
+                return BadRequest(errorResponse);
+            }
 
             var discountAmount = _service.CalculateDiscountAmount(transactionMapper.TotalAmount ?? 0);
 
