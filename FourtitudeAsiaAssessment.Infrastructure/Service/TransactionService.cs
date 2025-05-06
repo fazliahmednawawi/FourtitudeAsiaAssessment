@@ -1,5 +1,6 @@
 ﻿using FourtitudeAsiaAssessment.Application.IService;
 using FourtitudeAsiaAssessment.Domain;
+using FourtitudeAsiaAssessment.Infrastructure.Helper;
 using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -33,7 +34,7 @@ namespace FourtitudeAsiaAssessment.Infrastructure.Service
 
         public bool ValidTotalAmount(Transaction transaction)
         {
-            long calculatedTotal = transaction.Items.Sum(item => item.Qty.GetValueOrDefault() * item.UnitPrice.GetValueOrDefault());
+            long calculatedTotal = transaction.Items.Sum(x => x.Qty.GetValueOrDefault() * x.UnitPrice.GetValueOrDefault());
 
             return transaction.TotalAmount == calculatedTotal;
         }
@@ -59,19 +60,19 @@ namespace FourtitudeAsiaAssessment.Infrastructure.Service
         {
             decimal totalDiscount = 0;
 
-            if (totalAmount < 200)
+            if (totalAmount < ConvertRinggitToCentHelper.ConvertRinggitToCent(200))
             {
                 totalDiscount += 0;
             }
-            else if (totalAmount <= 500)
+            else if (totalAmount <= ConvertRinggitToCentHelper.ConvertRinggitToCent(500))
             {
                 totalDiscount += 0.05m;
             }
-            else if (totalAmount <= 800)
+            else if (totalAmount <= ConvertRinggitToCentHelper.ConvertRinggitToCent(800))
             {
                 totalDiscount += 0.07m;
             }
-            else if (totalAmount <= 1200)
+            else if (totalAmount <= ConvertRinggitToCentHelper.ConvertRinggitToCent(1200))
             {
                 totalDiscount += 0.1m;
             }
@@ -80,12 +81,12 @@ namespace FourtitudeAsiaAssessment.Infrastructure.Service
                 totalDiscount += 0.15m;
             }
 
-            if (totalAmount > 500 && IsPrime(totalAmount))
+            if (totalAmount > ConvertRinggitToCentHelper.ConvertRinggitToCent(500) && PrimeNumberHelper.IsPrimeNumber(totalAmount))
             {
                 totalDiscount += 0.08m;
             }
 
-            if (totalAmount > 900 && Math.Abs(totalAmount).ToString().Length >= 5)
+            if (totalAmount > ConvertRinggitToCentHelper.ConvertRinggitToCent(900) && NumberEndWithHelper.NumberEndWithFive(totalAmount))
             {
                 totalDiscount += 0.1m;
             }
@@ -98,23 +99,6 @@ namespace FourtitudeAsiaAssessment.Infrastructure.Service
             decimal discountAmount = totalAmount * totalDiscount;
 
             return (long)discountAmount;
-        }
-
-        public static bool IsPrime(long number)
-        {
-            if (number <= 1) return false;
-            if (number == 2) return true;
-            if (number % 2 == 0) return false;
-
-            int boundary = (int)Math.Sqrt(number);
-
-            for (int i = 3; i <= boundary; i += 2)
-            {
-                if (number % i == 0)
-                    return false;
-            }
-
-            return true;
         }
     }
 }

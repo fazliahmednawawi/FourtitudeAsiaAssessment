@@ -73,19 +73,19 @@ namespace FourtitudeAsiaAssessment.Controllers
                 return BadRequest(errorResponse);
             }
 
-            if (_service.ExpiredRequest(transactionMapper.Timestamp))
-            {
-                var errorResponse = new ErrorResponse
-                {
-                    Result = 0,
-                    ResultMessage = "Expired.",
-                    Description = new List<string> { "API request is expired." }
-                };
+            //if (_service.ExpiredRequest(transactionMapper.Timestamp))
+            //{
+            //    var errorResponse = new ErrorResponse
+            //    {
+            //        Result = 0,
+            //        ResultMessage = "Expired.",
+            //        Description = new List<string> { "API request is expired." }
+            //    };
 
-                _logger.Warn($"[RESPONSE] SubmitTransaction (Expired Request): {JsonConvert.SerializeObject(errorResponse)}");
+            //    _logger.Warn($"[RESPONSE] SubmitTransaction (Expired Request): {JsonConvert.SerializeObject(errorResponse)}");
 
-                return BadRequest(errorResponse);
-            }
+            //    return BadRequest(errorResponse);
+            //}
 
             var totalAmount = transactionMapper.TotalAmount.HasValue ? transactionMapper.TotalAmount.Value : 0;
             var discountAmount = _service.CalculateDiscountAmount(totalAmount);
