@@ -17,7 +17,7 @@ namespace FourtitudeAsiaAssessment.DTO.Request
         public string PartnerPassword { get; set; }
 
         [Required]
-        [Range(0, long.MaxValue)]
+        [Range(1, long.MaxValue, ErrorMessage = "TotalAmount value need to be positive value (greater than 0) only.")]
         public long? TotalAmount { get; set; }
 
         public List<ItemDetailDTO> Items { get; set; }
@@ -40,9 +40,11 @@ namespace FourtitudeAsiaAssessment.DTO.Request
         public string Name { get; set; }
 
         [Required]
+        [Range(1, 5, ErrorMessage = "Qty must be between 1 and 5.")]
         public int? Qty { get; set; }
 
         [Required]
+        [Range(1, long.MaxValue, ErrorMessage = "UnitPrice value need to be positive value (greater than 0) only.")]
         public long? UnitPrice { get; set; }
     }
 }
